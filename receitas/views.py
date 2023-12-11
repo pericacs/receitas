@@ -1,13 +1,23 @@
 from django.shortcuts import render
-
+from utils.receitas.factory import make_recipe
 
 
 def home(request):
     return render(
         request, 
-        'receitas/home.html',
+        'receitas/pages/home.html',
         context={
-            'name': 'Carlos André',
+            'receitas': [make_recipe() for _ in range(10)],
         }
     )
 
+
+def receita(request, id):
+    return render(
+        request, 
+        'receitas/pages/receita-detalhe.html',
+        context={
+            'receita': make_recipe(),
+            'is_detail_page': True,
+        }
+    )
