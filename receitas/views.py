@@ -1,4 +1,6 @@
+# flake8: noqa
 from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.http.response import Http404
 # from utils.receitas.factory import make_recipe
 from .models import Recipe
 
@@ -29,3 +31,9 @@ def receita(request, id):
     return render(request, 'receitas/pages/receita-detalhe.html',
         context={'receita': receita, 'is_detail_page': True} # noqa E128   
     )
+
+def search(request):
+    search_term = request.GET.get('q')
+    if not search_term:
+        raise Http404()
+    return render(request, 'receitas/pages/search.html')

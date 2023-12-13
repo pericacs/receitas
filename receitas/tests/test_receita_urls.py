@@ -13,3 +13,7 @@ class RecipeURLsTest(TestCase): # noqa E302
     def test_recipe_detail_url_is_correct(self):
         url = reverse('receitas:receita', kwargs={'id': 1})
         self.assertEqual(url, '/receitas/1/')
+
+    def test_recipe_search_url_is_correct(self):
+        url = reverse('receitas:search')
+        self.assertEqual(url, '/receitas/search/')
