@@ -13,20 +13,19 @@ def home(request):
             'receitas': receitas,
         }
     )
-
-def category(request, category_id):
+def category(request, category_id): # noqa E302    
     receitas = get_list_or_404(
         Recipe.objects.filter(category__id=category_id,
                               is_published=True).order_by('-id')
     )
     return render(request, 'receitas/pages/category.html', context={
         'receitas': receitas,
-        'title' : f'{receitas[0].category.name} - Category | '
+        'title': f'{receitas[0].category.name} - Category | '
     })
 
 
 def receita(request, id):    
     receita = get_object_or_404(Recipe, pk=id, is_published=True,)
     return render(request, 'receitas/pages/receita-detalhe.html',
-        context={'receita': receita, 'is_detail_page': True}
+        context={'receita': receita, 'is_detail_page': True} # noqa E128   
     )

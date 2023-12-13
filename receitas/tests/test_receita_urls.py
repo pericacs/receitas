@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
-class RecipeURLsTest(TestCase):
+class RecipeURLsTest(TestCase): # noqa E302    
     def test_receita_home_url_is_correct(self):
         url = reverse('receitas:home')
         self.assertEqual(url, '/')
@@ -11,8 +11,5 @@ class RecipeURLsTest(TestCase):
         self.assertEqual(url, '/receitas/category/1/')
 
     def test_recipe_detail_url_is_correct(self):
-        url = reverse('receitas:recipe', kwargs={'id': 1})
-        self.assertEqual(url, '/recipes/1/')
-
-
-  
+        url = reverse('receitas:receita', kwargs={'id': 1})
+        self.assertEqual(url, '/receitas/1/')
