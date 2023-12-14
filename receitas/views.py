@@ -1,6 +1,7 @@
 # flake8: noqa
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from django.http.response import Http404
+from django.db.models import Q
 # from utils.receitas.factory import make_recipe
 from .models import Recipe
 
@@ -36,7 +37,16 @@ def search(request):
     search_term = request.GET.get('q', '').strip()
     if not search_term:
         raise Http404()
+    
+    receitas = Recipe.objects.filter(
+        Q(
+            Q(title__icontains=search_term) | Q(description__icontains=search_term)
+        ),
+        is_published=True
+    ).order_by('-id')
+
     return render(request, 'receitas/pages/search.html', {
         'page_title': f'Search for "{search_term}" |',
         'search_term': search_term,
+        'recipes': receitas,
     })
