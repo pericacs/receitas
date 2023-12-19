@@ -2,6 +2,7 @@
 from django.urls import reverse, resolve
 from receitas import views
 from .test_receita_base import RecipeTestBase # noqa E261 
+from unittest.mock import patch
 
 class RecipeViewsTest(RecipeTestBase): # noqa E302     
     def test_recipe_home_view_function_is_correct(self): # noqa E302 
@@ -116,3 +117,17 @@ class RecipeViewsTest(RecipeTestBase): # noqa E302
         response = self.client.get(url)
         self.assertEqual(response.status_code, 404)
 
+    # def test_recipe_home_is_paginated(self):
+    #     for i in range(8):
+    #         kwargs = {'slug': f'r{i}', 'author_data': {'username': f'u{i}'}}
+    #         self.make_recipe(**kwargs)
+
+    #     with patch('receitas.views.PER_PAGE', new=3):
+    #         response = self.client.get(reverse('receitas:home'))
+    #         recipes = response.context['receitas']
+    #         paginator = recipes.paginator
+
+    #         self.assertEqual(paginator.num_pages, 3)
+    #         self.assertEqual(len(paginator.get_page(1)), 3)
+    #         self.assertEqual(len(paginator.get_page(2)), 3)
+    #         self.assertEqual(len(paginator.get_page(3)), 2)
